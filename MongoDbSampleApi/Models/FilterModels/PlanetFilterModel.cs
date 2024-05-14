@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
-using MongoDbSandbox.Models.RestModels;
+using MongoDbSampleApi.Models.RestModels;
 
-namespace MongoDbSandbox.Models.FilterModels;
+namespace MongoDbSampleApi.Models.FilterModels;
 
 public class PlanetFilterModel
 {

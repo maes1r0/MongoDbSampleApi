@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson;
 
-namespace MongoDbSandbox.Models.Entities;
+namespace MongoDbSampleApi.Models.Entities;
 
 public class Planet
 {

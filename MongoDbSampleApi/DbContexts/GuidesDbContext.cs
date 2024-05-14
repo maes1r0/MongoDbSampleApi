@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
-using MongoDB.EntityFrameworkCore.Extensions;
-using MongoDbSandbox.Models.Entities;
-using MongoDbSandbox.MongoDbContext;
+using MongoDbSampleApi.Models.Entities;
 
-namespace MongoDbSandbox.DbContexts;
+namespace MongoDbSampleApi.DbContexts;
 
 internal class GuidesDbContext : DbContext, IGuidesDbContext
 {

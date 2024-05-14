@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using MongoDbSandbox.DbContexts;
-using MongoDbSandbox.Models.Entities;
-using MongoDbSandbox.Models.FilterModels;
-using MongoDbSandbox.Models.RestModels;
+using MongoDbSampleApi.DbContexts;
+using MongoDbSampleApi.Models.Entities;
+using MongoDbSampleApi.Models.FilterModels;
+using MongoDbSampleApi.Models.RestModels;
 using MongoDbSandbox.Repositories.FilterFactories;
 
-namespace MongoDbSandbox.Repositories;
+namespace MongoDbSampleApi.Repositories;
 
 internal class PlanetRepository : IPlanetRepository
 {

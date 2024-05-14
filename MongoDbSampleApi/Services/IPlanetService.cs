@@ -2,9 +2,9 @@
 using MongoDbSampleApi.Models.FilterModels;
 using MongoDbSampleApi.Models.RestModels;
 
-namespace MongoDbSampleApi.Repositories;
+namespace MongoDbSampleApi.Services;
 
-public interface IPlanetRepository
+public interface IPlanetService
 {
     Task AddAsync(PlanetRestModel planetRestModel);
 

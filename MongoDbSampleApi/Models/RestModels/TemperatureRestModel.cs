@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson;
 
-namespace MongoDbSandbox.Models.RestModels;
+namespace MongoDbSampleApi.Models.RestModels;
 
 public class TemperatureRestModel
 {

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using MongoDbSandbox.Models.Entities;
-using MongoDbSandbox.Models.RestModels;
+using MongoDbSampleApi.Models.Entities;
+using MongoDbSampleApi.Models.RestModels;
 
-namespace MongoDbSandbox.AutoMapperProfiles;
+namespace MongoDbSampleApi.AutoMapperProfiles;
 
 public class TemperatureTemperatureRestModelMapperProfile : Profile
 {

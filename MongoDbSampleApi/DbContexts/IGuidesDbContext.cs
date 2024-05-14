@@ -1,9 +1,10 @@
 ﻿using MongoDB.Driver;
-using MongoDbSandbox.Models.Entities;
+using MongoDbSampleApi.Models.Entities;
 
-namespace MongoDbSandbox.DbContexts;
-
-public interface IGuidesDbContext
+namespace MongoDbSampleApi.DbContexts
 {
-    IMongoCollection<Planet> Planets { get; }
+    public interface IGuidesDbContext
+    {
+        IMongoCollection<Planet> Planets { get; }
+    }
 }

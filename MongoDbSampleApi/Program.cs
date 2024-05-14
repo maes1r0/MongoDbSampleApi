@@ -1,17 +1,17 @@
 using Microsoft.EntityFrameworkCore;
-using MongoDbSandbox.AutoMapperProfiles;
-using MongoDbSandbox.DbContexts;
+using MongoDbSampleApi.AutoMapperProfiles;
+using MongoDbSampleApi.DbContexts;
 
-namespace MongoDbSandbox;
+namespace MongoDbSampleApi;
 
 public class Program
 {
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        
-        builder.Configuration.AddConfiguration(
-            new ConfigurationBuilder().AddJsonFile("appsettings.json").Build());
+
+        var appSettingsConfiguration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+        builder.Configuration.AddConfiguration(appSettingsConfiguration);
         
         // Add services to the container.
         builder.Services.AddAuthorization();
@@ -21,16 +21,13 @@ public class Program
         builder.Services.AddSwaggerGen();
         
         //register db context
-        builder.Services.AddDbContext<GuidesDbContext>(options => options.UseMongoDB(
-            builder.Configuration["ConnectionString"] ?? throw new ArgumentException("Connection string is required."),
-            builder.Configuration["DatabaseName"] ?? throw new ArgumentException("Connection string is required.")));
+        builder.Services.AddDbContext(builder.Configuration);
 
         //register automapper
-        builder.Services.AddAutoMapper(config =>
-        {
-            config.AddProfile<TemperatureTemperatureRestModelMapperProfile>();
-            config.AddProfile<PlanetPlanetRestModelMapperProfile>();
-        });
+        builder.Services.AddAutoMapper();
+        
+        //register services
+        builder.Services.RegisterServices();
 
         var app = builder.Build();
 

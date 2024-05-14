@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using MongoDB.Driver;
-using MongoDbSandbox.Models.Entities;
-using MongoDbSandbox.Models.FilterModels;
-using MongoDbSandbox.Models.RestModels;
+using MongoDbSampleApi.Models.Entities;
+using MongoDbSampleApi.Models.FilterModels;
+using MongoDbSampleApi.Models.RestModels;
 
 namespace MongoDbSandbox.Repositories.FilterFactories;
 
