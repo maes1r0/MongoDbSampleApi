@@ -1,5 +1,3 @@
-﻿using MongoDB.Bson;
-
 namespace MongoDbSampleApi.Models.RestModels;
 
 public class TemperatureRestModel
