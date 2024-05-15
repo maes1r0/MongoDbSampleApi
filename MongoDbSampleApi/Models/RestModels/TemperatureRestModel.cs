@@ -1,4 +1,4 @@
-﻿namespace MongoDbSampleApi.Models.RestModels;
+namespace MongoDbSampleApi.Models.RestModels;
 
 public class TemperatureRestModel
 {

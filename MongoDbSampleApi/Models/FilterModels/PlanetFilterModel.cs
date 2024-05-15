@@ -1,4 +1,4 @@
-﻿namespace MongoDbSampleApi.Models.FilterModels;
+namespace MongoDbSampleApi.Models.FilterModels;
 
 public class PlanetFilterModel
 {
