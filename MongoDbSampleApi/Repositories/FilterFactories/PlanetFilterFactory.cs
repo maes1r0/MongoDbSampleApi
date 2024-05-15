@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDbSampleApi.Extensions;
 using MongoDbSampleApi.Models.Entities;
@@ -64,12 +63,12 @@ public class PlanetFilterFactory : IFilterFactory<PlanetFilterModel, PlanetRestM
         {
             filterDefinitionBuilder &= Builders<Planet>.Filter.In(planetEntity => planetEntity.Name, planetFilterModel.Name);
         }
-
+        
         if (planetFilterModel.OrderFromSun != null && planetFilterModel.OrderFromSun.Count > 0)
         {
             filterDefinitionBuilder &= Builders<Planet>.Filter.In(planetEntity => planetEntity.OrderFromSun, planetFilterModel.OrderFromSun);
         }
-
+        
         if (planetFilterModel.HasRings.HasValue)
         {
             filterDefinitionBuilder &= Builders<Planet>.Filter.Eq(planetEntity => planetEntity.HasRings, planetFilterModel.HasRings);
