@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MongoDbSampleApi.Extensions;
 using MongoDbSampleApi.Models.Entities;
 using MongoDbSampleApi.Models.RestModels;
 
@@ -14,6 +13,4 @@ public class PlanetPlanetRestModelMapperProfile : Profile
             .ForMember(member => member.SurfaceTemperatureC,
                 option => option.MapFrom(model => model.SurfaceTemperatureC))
             .ReverseMap();
-    // .ForMember(member => member.Id,
-    //     option => option.MapFrom(model => model.Id.ToObjectId()))
 }
