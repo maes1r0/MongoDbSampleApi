@@ -4,7 +4,7 @@ using MongoDbSampleApi.Models.Entities;
 using MongoDbSampleApi.Models.FilterModels;
 using MongoDbSampleApi.Models.RestModels;
 
-namespace MongoDbSandbox.Repositories.FilterFactories;
+namespace MongoDbSampleApi.Repositories.FilterFactories;
 
 public class FilterFactory<TEntity, TEntityRestModel> : IFilterFactory<TEntity, TEntityRestModel>
 {

@@ -1,6 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-using MongoDbSampleApi.AutoMapperProfiles;
-using MongoDbSampleApi.DbContexts;
+using MongoDbSampleApi.Extensions;
 
 namespace MongoDbSampleApi;
 
@@ -10,8 +8,8 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        var appSettingsConfiguration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-        builder.Configuration.AddConfiguration(appSettingsConfiguration);
+        // Add app settings configuration to configuration container
+        builder.AddAppSettingsConfiguration();
         
         // Add services to the container.
         builder.Services.AddAuthorization();
@@ -41,6 +39,8 @@ public class Program
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
+
+        app.MapControllers();
 
         app.Run();
     }

@@ -5,7 +5,7 @@ using MongoDbSampleApi.DbContexts;
 using MongoDbSampleApi.Models.Entities;
 using MongoDbSampleApi.Models.FilterModels;
 using MongoDbSampleApi.Models.RestModels;
-using MongoDbSandbox.Repositories.FilterFactories;
+using MongoDbSampleApi.Repositories.FilterFactories;
 
 namespace MongoDbSampleApi.Repositories;
 

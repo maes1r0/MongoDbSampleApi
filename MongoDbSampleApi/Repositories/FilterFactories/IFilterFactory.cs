@@ -1,6 +1,6 @@
 ﻿using MongoDB.Driver;
 
-namespace MongoDbSandbox.Repositories.FilterFactories;
+namespace MongoDbSampleApi.Repositories.FilterFactories;
 
 public interface IFilterFactory<in TGetAllFilter, in TEntityRestModel, TEntity>
 {

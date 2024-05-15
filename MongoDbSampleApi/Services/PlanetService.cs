@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDbSampleApi.Extensions;
 using MongoDbSampleApi.Models.FilterModels;
 using MongoDbSampleApi.Models.RestModels;
 using MongoDbSampleApi.Repositories;
@@ -15,29 +16,31 @@ public class PlanetService : IPlanetService
     }
     
     public async Task AddAsync(PlanetRestModel planetRestModel)
-        => await repository.AddAsync(planetRestModel);
+        => await ArgumentValidator.HandleAsync(() => repository.AddAsync(planetRestModel), planetRestModel);
 
     public async Task<PlanetRestModel> GetAsync(ObjectId id)
-        => await repository.GetAsync(id);
+        => await ArgumentValidator.HandleAsync(() => repository.GetAsync(id), id);
 
     public async Task<IReadOnlyCollection<PlanetRestModel>> GetAllAsync(PlanetFilterModel planetFilterModel)
-        => await repository.GetAllAsync(planetFilterModel);
+        => await ArgumentValidator.HandleAsync(() => repository.GetAllAsync(planetFilterModel), planetFilterModel);
 
     public async Task<bool> UpdateAsync(PlanetRestModel planetRestModel)
-        => await repository.UpdateAsync(planetRestModel);
+        => await ArgumentValidator.HandleAsync(() => repository.UpdateAsync(planetRestModel), planetRestModel);
 
     public async Task<PlanetRestModel> UpdateAndGetAsync(PlanetRestModel planetRestModel)
-        => await repository.UpdateAndGetAsync(planetRestModel);
+        => await ArgumentValidator.HandleAsync(() => repository.UpdateAndGetAsync(planetRestModel), planetRestModel);
 
     public async Task<bool> BatchUpdateAsync(IReadOnlyCollection<ObjectId> ids, PlanetRestModel updateModel)
-        => await repository.BatchUpdateAsync(ids, updateModel);
+        => await ArgumentValidator.HandleAsync(
+            () => repository.BatchUpdateAsync(ids, updateModel),
+            ids, updateModel);
 
     public async Task<bool> PatchAsync(PlanetRestModel planetRestModel)
-        => await repository.PatchAsync(planetRestModel);
+        => await ArgumentValidator.HandleAsync(() => repository.PatchAsync(planetRestModel), planetRestModel);
 
     public async Task<PlanetRestModel> PatchAndGetAsync(PlanetRestModel planetRestModel)
-        => await repository.PatchAndGetAsync(planetRestModel);
+        => await ArgumentValidator.HandleAsync(() => repository.PatchAndGetAsync(planetRestModel), planetRestModel);
 
     public async Task<bool> BatchDeleteAsync(IReadOnlyCollection<ObjectId> ids)
-        => await repository.BatchDeleteAsync(ids);
+        => await ArgumentValidator.HandleAsync(() => repository.BatchDeleteAsync(ids), ids);
 }
