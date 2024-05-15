@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDbSampleApi.Extensions;
 using MongoDbSampleApi.Models.Entities;
 using MongoDbSampleApi.Models.FilterModels;
 using MongoDbSampleApi.Models.RestModels;
@@ -51,22 +53,38 @@ public class PlanetFilterFactory : IFilterFactory<PlanetFilterModel, PlanetRestM
     public FilterDefinition<Planet> CreateGetAllFilter(PlanetFilterModel planetFilterModel)
     {
         var filterDefinitionBuilder = Builders<Planet>.Filter.Empty;
+        
+        if(planetFilterModel.Id != null && planetFilterModel.Id.ToObjectId().Count > 0)
+        {
+            filterDefinitionBuilder &= Builders<Planet>.Filter.In(planetEntity => planetEntity.Id, 
+                planetFilterModel.Id.ToObjectId());
+        }
 
-        if (planetFilterModel.Name != null && planetFilterModel.Name.Count != 0)
+        if (planetFilterModel.Name != null && planetFilterModel.Name.Count > 0)
         {
             filterDefinitionBuilder &= Builders<Planet>.Filter.In(planetEntity => planetEntity.Name, planetFilterModel.Name);
         }
 
-        if (planetFilterModel.OrderFromSun != null && planetFilterModel.OrderFromSun.Count != 0)
+        if (planetFilterModel.OrderFromSun != null && planetFilterModel.OrderFromSun.Count > 0)
         {
             filterDefinitionBuilder &= Builders<Planet>.Filter.In(planetEntity => planetEntity.OrderFromSun, planetFilterModel.OrderFromSun);
         }
 
-        if (planetFilterModel.MainAtmosphere != null && planetFilterModel.MainAtmosphere.Count != 0)
+        if (planetFilterModel.HasRings.HasValue)
         {
-            filterDefinitionBuilder &= Builders<Planet>.Filter.ElemMatch(planetEntity => planetEntity.MainAtmosphere,
-                element => planetFilterModel.MainAtmosphere.Contains(element));
+            filterDefinitionBuilder &= Builders<Planet>.Filter.Eq(planetEntity => planetEntity.HasRings, planetFilterModel.HasRings);
         }
+
+        // if (planetFilterModel.MainAtmosphere != null && planetFilterModel.MainAtmosphere.Count > 0)
+        // {
+        //      This implementations somehow cause InvalidCastException(MongoDB.Bson.Serialization.Serializers.StringSerializer"
+        //      to MongoDB.Bson.Serialization.IBsonDocumentSerializer)
+        //      filterDefinitionBuilder &= Builders<Planet>.Filter.ElemMatch(planetEntity => planetEntity.MainAtmosphere, element
+        //          => planetFilterModel.MainAtmosphere.Contains(element));
+        //     
+        //      filterDefinitionBuilder &= Builders<Planet>.Filter.ElemMatch(planetEntity => planetEntity.MainAtmosphere, 
+        //          Builders<string>.Filter.In(atmosphere => atmosphere, planetFilterModel.MainAtmosphere));
+        // }
         
         return filterDefinitionBuilder;
     }

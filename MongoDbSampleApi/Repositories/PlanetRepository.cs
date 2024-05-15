@@ -49,9 +49,12 @@ internal class PlanetRepository : IPlanetRepository
     
     public async Task<PlanetRestModel> UpdateAndGetAsync(PlanetRestModel planetRestModel)
     {
-        var result = await planets.FindOneAndReplaceAsync(
+        //by default FindOneAndReplaceAsync return document before replace operation
+        var options = new FindOneAndReplaceOptions<Planet> { ReturnDocument = ReturnDocument.After };
+        var result = await planets.FindOneAndReplaceAsync<Planet>(
             planet => planet.Id == planetRestModel.Id.ToObjectId(), 
-            mapper.Map<Planet>(planetRestModel));
+            mapper.Map<Planet>(planetRestModel),
+            options);
         
         return mapper.Map<PlanetRestModel>(result);
     }
@@ -75,9 +78,12 @@ internal class PlanetRepository : IPlanetRepository
     
     public async Task<PlanetRestModel> PatchAndGetAsync(PlanetRestModel planetRestModel)
     {
-        var result = await planets.FindOneAndUpdateAsync(
+        //by default FindOneAndUpdateAsync return document before update operation
+        var options = new FindOneAndUpdateOptions<Planet> { ReturnDocument = ReturnDocument.After };
+        var result = await planets.FindOneAndUpdateAsync<Planet>(
             planet => planet.Id == planetRestModel.Id.ToObjectId(),
-            filterFactory.CreatePatchFilter(planetRestModel));
+            filterFactory.CreatePatchFilter(planetRestModel),
+            options);
         
         return mapper.Map<PlanetRestModel>(result);
     }

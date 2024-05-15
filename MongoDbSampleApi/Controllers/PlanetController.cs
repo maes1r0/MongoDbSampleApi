@@ -39,8 +39,8 @@ public class PlanetController : ControllerBase
         => (await planetService.UpdateAndGetAsync(planetRestModel)).CreateActionResult();
 
     [HttpPost("updateAll")]
-    public async Task<IActionResult> BatchUpdateAsync([FromQuery]IReadOnlyCollection<ObjectId> ids, [FromBody]PlanetRestModel updateModel)
-        => (await planetService.BatchUpdateAsync(ids, updateModel)).CreateActionResult();
+    public async Task<IActionResult> BatchUpdateAsync([FromQuery]IReadOnlyCollection<string> ids, [FromBody]PlanetRestModel updateModel)
+        => (await planetService.BatchUpdateAsync(ids.ToObjectId(), updateModel)).CreateActionResult();
 
     [HttpPatch("patch")]
     public async Task<IActionResult> PatchAsync(PlanetRestModel planetRestModel)
@@ -51,6 +51,6 @@ public class PlanetController : ControllerBase
         => (await planetService.PatchAndGetAsync(planetRestModel)).CreateActionResult();
 
     [HttpDelete]
-    public async Task<IActionResult> BatchDeleteAsync(IReadOnlyCollection<ObjectId> ids)
-        => (await planetService.BatchDeleteAsync(ids)).CreateActionResult();
+    public async Task<IActionResult> BatchDeleteAsync([FromBody]IReadOnlyCollection<string> ids)
+        => (await planetService.BatchDeleteAsync(ids.ToObjectId())).CreateActionResult();
 }
