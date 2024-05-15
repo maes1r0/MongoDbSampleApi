@@ -7,13 +7,13 @@ namespace MongoDbSampleApi.DbContexts;
 
 internal class GuidesDbContext : DbContext, IGuidesDbContext
 {
-    private const string PlanetCollectionName = "planet";
+    private const string PlanetCollectionName = "planets";
     
     public GuidesDbContext(IConfiguration config, DbContextOptions<GuidesDbContext> options)
         : base(options)
     {
         var client = CreateMongoClient(config);
-
+        
         Planets = client.GetDatabase(config[ApplicationConstants.DatabaseFieldName]).GetCollection<Planet>(PlanetCollectionName);
     }
     

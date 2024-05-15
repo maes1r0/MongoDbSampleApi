@@ -15,8 +15,9 @@ public class PlanetService : IPlanetService
         this.repository = repository;
     }
     
-    public async Task AddAsync(PlanetRestModel planetRestModel)
-        => await ArgumentValidator.HandleAsync(() => repository.AddAsync(planetRestModel), planetRestModel);
+    public async Task<string> AddAsync(PlanetRestModel planetRestModel)
+        => (await ArgumentValidator.HandleAsync(() => repository.AddAsync(planetRestModel), planetRestModel))
+            .ToString();
 
     public async Task<PlanetRestModel> GetAsync(ObjectId id)
         => await ArgumentValidator.HandleAsync(() => repository.GetAsync(id), id);

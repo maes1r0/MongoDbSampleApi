@@ -2,6 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDbSampleApi.DbContexts;
+using MongoDbSampleApi.Extensions;
 using MongoDbSampleApi.Models.Entities;
 using MongoDbSampleApi.Models.FilterModels;
 using MongoDbSampleApi.Models.RestModels;
@@ -24,9 +25,13 @@ internal class PlanetRepository : IPlanetRepository
         this.mapper = mapper;
         planets = context.Planets;
     }
-    
-    public async Task AddAsync(PlanetRestModel planetRestModel)
-        => await planets.InsertOneAsync(mapper.Map<Planet>(planetRestModel));
+
+    public async Task<ObjectId> AddAsync(PlanetRestModel planetRestModel)
+    {
+        var planet = mapper.Map<Planet>(planetRestModel);
+        await planets.InsertOneAsync(planet);
+        return planet.Id;
+    }
     
     public async Task<PlanetRestModel> GetAsync(ObjectId id)
         => mapper.Map<PlanetRestModel>(await planets.Find(planet => planet.Id == id).SingleOrDefaultAsync());
@@ -37,15 +42,17 @@ internal class PlanetRepository : IPlanetRepository
         
     public async Task<bool> UpdateAsync(PlanetRestModel planetRestModel)
     {
-        var result = await planets.ReplaceOneAsync(planet => planet.Id == planetRestModel.Id,
+        var result = await planets.ReplaceOneAsync(planet => planet.Id == planetRestModel.Id.ToObjectId(),
             mapper.Map<Planet>(planetRestModel));
         return result.IsAcknowledged && result.ModifiedCount > 0;
     }
     
     public async Task<PlanetRestModel> UpdateAndGetAsync(PlanetRestModel planetRestModel)
     {
-        var result = await planets.FindOneAndReplaceAsync(planet => planet.Id == planetRestModel.Id,
+        var result = await planets.FindOneAndReplaceAsync(
+            planet => planet.Id == planetRestModel.Id.ToObjectId(), 
             mapper.Map<Planet>(planetRestModel));
+        
         return mapper.Map<PlanetRestModel>(result);
     }
     
@@ -59,15 +66,19 @@ internal class PlanetRepository : IPlanetRepository
     
     public async Task<bool> PatchAsync(PlanetRestModel planetRestModel)
     {
-        var result = await planets.UpdateOneAsync(planet => planet.Id == planetRestModel.Id,
+        var result = await planets.UpdateOneAsync(
+            planet => planet.Id == planetRestModel.Id.ToObjectId(),
             filterFactory.CreatePatchFilter(planetRestModel));
+        
         return result.IsAcknowledged && result.ModifiedCount > 0;
     }
     
     public async Task<PlanetRestModel> PatchAndGetAsync(PlanetRestModel planetRestModel)
     {
-        var result = await planets.FindOneAndUpdateAsync(planet => planet.Id == planetRestModel.Id,
+        var result = await planets.FindOneAndUpdateAsync(
+            planet => planet.Id == planetRestModel.Id.ToObjectId(),
             filterFactory.CreatePatchFilter(planetRestModel));
+        
         return mapper.Map<PlanetRestModel>(result);
     }
     

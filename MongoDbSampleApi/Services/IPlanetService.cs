@@ -6,7 +6,7 @@ namespace MongoDbSampleApi.Services;
 
 public interface IPlanetService
 {
-    Task AddAsync(PlanetRestModel planetRestModel);
+    Task<string> AddAsync(PlanetRestModel planetRestModel);
 
     Task<PlanetRestModel> GetAsync(ObjectId id);
 

@@ -6,7 +6,7 @@ namespace MongoDbSampleApi.Repositories;
 
 public interface IPlanetRepository
 {
-    Task AddAsync(PlanetRestModel planetRestModel);
+    Task<ObjectId> AddAsync(PlanetRestModel planetRestModel);
 
     Task<PlanetRestModel> GetAsync(ObjectId id);
 

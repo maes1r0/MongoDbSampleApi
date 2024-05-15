@@ -1,7 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MongoDbSampleApi.AutoMapperProfiles;
 using MongoDbSampleApi.DbContexts;
+using MongoDbSampleApi.Models.Entities;
+using MongoDbSampleApi.Models.FilterModels;
+using MongoDbSampleApi.Models.RestModels;
 using MongoDbSampleApi.Repositories;
+using MongoDbSampleApi.Repositories.FilterFactories;
 using MongoDbSampleApi.Services;
 
 namespace MongoDbSampleApi.Extensions;
@@ -31,7 +35,9 @@ public static class ServiceInitializer
     
     public static void RegisterServices(this IServiceCollection services)
     {
-        services.AddTransient<IPlanetService, PlanetService>();
+        services.AddTransient<IFilterFactory<PlanetFilterModel, PlanetRestModel, Planet>, PlanetFilterFactory>();
         services.AddTransient<IPlanetRepository, PlanetRepository>();
+        services.AddTransient<IPlanetService, PlanetService>();
+        services.AddControllers();
     }
 }

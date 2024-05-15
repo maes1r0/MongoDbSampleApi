@@ -23,15 +23,12 @@ public class PlanetController : ControllerBase
         => (await planetService.GetAsync(id)).CreateActionResult();
 
     [HttpGet("all")]
-    public async Task<IActionResult> GetAllAsync(PlanetFilterModel planetFilterModel)
+    public async Task<IActionResult> GetAllAsync([FromQuery]PlanetFilterModel planetFilterModel)
         => (await planetService.GetAllAsync(planetFilterModel)).CreateActionResult();
-    
+
     [HttpPut]
     public async Task<IActionResult> AddAsync(PlanetRestModel planetRestModel)
-    {
-        await planetService.AddAsync(planetRestModel);
-        return new OkResult();
-    }
+        => (await planetService.AddAsync(planetRestModel)).CreateActionResult();
 
     [HttpPost("update")]
     public async Task<IActionResult> UpdateAsync(PlanetRestModel planetRestModel)
@@ -42,7 +39,7 @@ public class PlanetController : ControllerBase
         => (await planetService.UpdateAndGetAsync(planetRestModel)).CreateActionResult();
 
     [HttpPost("updateAll")]
-    public async Task<IActionResult> BatchUpdateAsync(IReadOnlyCollection<ObjectId> ids, PlanetRestModel updateModel)
+    public async Task<IActionResult> BatchUpdateAsync([FromQuery]IReadOnlyCollection<ObjectId> ids, [FromBody]PlanetRestModel updateModel)
         => (await planetService.BatchUpdateAsync(ids, updateModel)).CreateActionResult();
 
     [HttpPatch("patch")]

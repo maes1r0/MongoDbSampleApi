@@ -2,7 +2,7 @@
 
 public static class ApplicationConstants
 {
-    public const string ConnectionFieldName = "ConnectionStrings";
+    public const string ConnectionFieldName = "ConnectionString";
     
     public const string DatabaseFieldName = "DatabaseName";
     
