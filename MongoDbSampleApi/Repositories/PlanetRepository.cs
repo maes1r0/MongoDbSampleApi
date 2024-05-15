@@ -88,12 +88,6 @@ internal class PlanetRepository : IPlanetRepository
         return mapper.Map<PlanetRestModel>(result);
     }
     
-    public async Task<bool> DeleteAsync(ObjectId id)
-    {
-        var result = await planets.DeleteOneAsync(planet => planet.Id == id);
-        return result.IsAcknowledged && result.DeletedCount > 0;
-    }
-    
     public async Task<bool> BatchDeleteAsync(IReadOnlyCollection<ObjectId> ids)
     {
         var filter = Builders<Planet>.Filter.In(planet => planet.Id, ids);

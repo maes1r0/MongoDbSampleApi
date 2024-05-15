@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MongoDbSampleApi.Extensions;
 using MongoDbSampleApi.Models.Entities;
 using MongoDbSampleApi.Models.RestModels;
 
